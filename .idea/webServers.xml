@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="cbc1812c-fdac-4aec-be6e-7432ef6aacf8" name="myNoteServer" url="http://59.111.96.250">
+        <fileTransfer host="59.111.96.250" port="22" privateKey="$USER_HOME$/Downloads/hi" accessType="SFTP" keyPair="true">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" />
+          </advancedOptions>
+          <option name="port" value="22" />
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

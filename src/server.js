@@ -44,7 +44,15 @@ app.get('/deletenote/:dir', function (req, res) {
     });
 });
 
-var server = app.listen(80, function () {
+app.get('/getnotes/:dir', function (req, res) {
+    fs.readFile( __dirname + '/userData/' + req.params.dir + '' + "/notes.json", 'utf8', function (err, data) {
+        console.log( data );
+        res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
+        res.end( data );
+    });
+});
+
+var server = app.listen(9000, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("应用实例，访问地址为 http://%s:%s", host, port);
