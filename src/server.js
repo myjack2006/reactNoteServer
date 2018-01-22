@@ -5,8 +5,18 @@ var fs = require("fs");
 app.get('/getnotes/:dir', function (req, res) {
     fs.readFile( __dirname + '/userData/' + req.params.dir + '' + "/notes.json", 'utf8', function (err, data) {
         console.log( data );
-        res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
-        res.end( data );
+        var callback = req.query.callback;
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+        res.header("X-Powered-By",' 3.2.1')
+        res.header("Content-Type", "application/json;charset=utf-8");
+        if (callback == null) {
+            res.end( data );
+        } else {
+            res.type('text/javascript');
+            res.send(callback + '(' + data + ')');
+        }
     });
 });
 
@@ -15,15 +25,20 @@ app.get('/addnote/:dir', function (req, res) {
     fs.readFile(filename , 'utf8', function (err, data) {
         console.log( data );
         var result=JSON.parse(data);
-        result.list.push({
+        var item = {
             "ID": "A" + (new Date).getTime() + "A",
             "title": req.query.title,
             "link": req.query.link,
             "note": req.query.note
-        });
+        };
+        result.list.push(item);
         fs.writeFile(filename, JSON.stringify(result));
-        res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
-        res.end(JSON.stringify({"code": "000000", "msg": "Success"}));
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+        res.header("X-Powered-By",' 3.2.1')
+        res.header("Content-Type", "application/json;charset=utf-8");
+        res.end(JSON.stringify({"code": "000000", "msg": "Success", "data": item}));
     });
 });
 
@@ -39,7 +54,11 @@ app.get('/deletenote/:dir', function (req, res) {
             }
         }
         fs.writeFile(filename, JSON.stringify(result));
-        res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+        res.header("X-Powered-By",' 3.2.1')
+        res.header("Content-Type", "application/json;charset=utf-8");
         res.end(JSON.stringify({"code": "000000", "msg": "Success"}));
     });
 });
@@ -47,7 +66,11 @@ app.get('/deletenote/:dir', function (req, res) {
 app.get('/getnotes/:dir', function (req, res) {
     fs.readFile( __dirname + '/userData/' + req.params.dir + '' + "/notes.json", 'utf8', function (err, data) {
         console.log( data );
-        res.writeHead(200,{'Content-Type':'text/html;charset=utf-8'});
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+        res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+        res.header("X-Powered-By",' 3.2.1')
+        res.header("Content-Type", "application/json;charset=utf-8");
         res.end( data );
     });
 });
