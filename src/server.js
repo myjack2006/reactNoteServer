@@ -75,7 +75,7 @@ app.get('/getnotes/:dir', function (req, res) {
     });
 });
 
-var server = app.listen(9000, function () {
+var server = app.listen(801, function () {
     var host = server.address().address;
     var port = server.address().port;
     console.log("应用实例，访问地址为 http://%s:%s", host, port);
