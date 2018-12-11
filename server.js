@@ -53,7 +53,7 @@ app.get('/deletenote/:dir', function (req, res) {
                 break;
             }
         }
-        fs.writeFile(filename, JSON.stringify(result));
+        fs.writeFile(filename, JSON.stringify(result), function() {});
         res.header("Access-Control-Allow-Origin", "*");
         res.header("Access-Control-Allow-Headers", "X-Requested-With");
         res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
