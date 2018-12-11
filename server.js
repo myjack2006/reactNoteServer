@@ -45,13 +45,13 @@ app.get('/addnote/:dir', function (req, res) {
 app.get('/deletenote/:dir', function (req, res) {
     var filename = __dirname + '/userData/' + req.params.dir + '' + "/notes.json";
     fs.readFile(filename , 'utf8', function (err, data) {
-        console.log( data );
+      try {
         var result=JSON.parse(data);
         for (var i = 0; i < result.list.length; i++) {
-            if (result.list[i].ID == req.query.ID) {
-                result.list.splice(i, 1);
-                break;
-            }
+          if (result.list[i].ID == req.query.ID) {
+            result.list.splice(i, 1);
+            break;
+          }
         }
         fs.writeFile(filename, JSON.stringify(result), function() {});
         res.header("Access-Control-Allow-Origin", "*");
@@ -60,6 +60,9 @@ app.get('/deletenote/:dir', function (req, res) {
         res.header("X-Powered-By",' 3.2.1')
         res.header("Content-Type", "application/json;charset=utf-8");
         res.end(JSON.stringify({"code": "000000", "msg": "Success"}));
+      } catch (err) {
+        console.error(err);
+      }
     });
 });
 
